@@ -77,12 +77,12 @@ def create_proposal(request, job_id):
         bid_amount = request.POST['bid_amount']
         email = request.POST['email']
         cv_file = request.FILES.get('cv_file') 
-        modelx = Proposal(project=job, freelancer=request.user, name=name, email=email,cover_letter=cover_letter, bid_amount=bid_amount ,cv_file=cv_file )
-        modelx.save()
+        modelx_save = Proposal(project=job, freelancer=request.user, name=name, email=email,cover_letter=cover_letter, bid_amount=bid_amount ,cv_file=cv_file )
+        modelx_save.save()
        
         subject = f"{name} sent a  Proposal  for {job.title} Techkaj-job"
         date_time_x = timezone.now()
-        html_message = render_to_string('me_email.html', {'item':modelx,"date_time_x":date_time_x})
+        html_message = render_to_string('me_email.html', {"date_time_x":date_time_x})
         message = strip_tags(html_message)
         email_list = email_for_send_message.objects.all()
         recipient_list = []
